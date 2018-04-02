@@ -1,24 +1,23 @@
 <?php
     require_once("cabecalho.php");
-    require_once("banco-produto.php"); 
-    require_once("class/Produto.php");
-    require_once("class/Categoria.php");
 
-    $produto = new Produto();
-    $categoria = new Categoria();
-    $produto->setCategoria($categoria);
+    $tipoProduto = $_POST['tipoProduto'];
 
-    $produto->setNome($_POST["nome"]);
-    $produto->setPreco($_POST["preco"]);
-    $produto->setDescricao($_POST["descricao"]);
-    $categoria->setId($_POST["categoria_id"]);
+    $factory = new ProdutoFactory();
+    $produto = $factory->criaPor($tipoProduto, $_POST);
+    $produto->atualizaBaseadoEm($_POST);
+
+    $produto->getCategoria()->setId($_POST['categoria_id']);
+
     if(array_key_exists('usado', $_POST)) {
         $produto->setUsado("true");
     } else {
         $produto->setUsado("false");
     }
-    
-    if(insereProduto($conexao, $produto)) {
+
+    $produtoDao = new ProdutoDAO($conexao);
+
+    if($produtoDao->insereProduto($produto)) {
 ?>
 <p class="text-success">Produto <?= $produto->getNome(); ?>, <?= $produto->getPreco(); ?> adicionado com sucesso!</p>
 <?php

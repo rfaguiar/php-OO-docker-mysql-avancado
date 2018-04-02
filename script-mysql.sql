@@ -1,9 +1,11 @@
-CREATE SCHEMA 'loja-php' DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA `loja-php` DEFAULT CHARACTER SET utf8 ;
 
 
 create table categorias (id integer auto_increment primary key, nome varchar(255));
-create table produtos (id integer auto_increment primary key, nome varchar(255), preco decimal(10,2), descricao text, categoria_id integer, usado boolean default false);
-create table usuarios (id integer auto_increment primary key, email varchar(255), senha varchar(255));
+create table produtos (id integer auto_increment primary key, nome varchar(255), preco decimal(10,2), 
+	descricao text, categoria_id integer, usado boolean default false, isbn VARCHAR(255), tipoProduto VARCHAR(255));
+create table usuarios (id integer auto_increment primary key, email varchar(255), senha varchar(255), waterMark VARCHAR(255), 
+	taxaImpressao VARCHAR(255));
 
 insert into usuarios (email,senha) values ('admin@gmail.com.br', 'e10adc3949ba59abbe56e057f20f883e');
 --123456

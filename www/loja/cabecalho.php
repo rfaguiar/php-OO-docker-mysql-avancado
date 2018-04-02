@@ -1,7 +1,16 @@
 <?php
+
+    function carregaClasse($nomeDaClasse) {
+        require_once("class/".$nomeDaClasse.".php");
+    }
+    spl_autoload_register("carregaClasse");
+
+    require_once("conecta.php");
     require_once("logica-usuario.php");
     require_once("mostra-alerta.php");
     verificaUsuario();
+
+    
 ?>
 <!DOCTYPE html>
 <html>
